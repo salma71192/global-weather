@@ -14,11 +14,17 @@ $(document).ready(function() {
   // getWeather function
   function getWeather(lt, ln) {
     var urlString = api + lt + "&" + ln;
-    fetch(urlString, {method: "GET"}).then((data) => {
-      data.json();
-    }).then((response) => {
-      console.log(response);
+    $.ajax({
+      url: urlString,
+      success: function (result) {
+          console.log(result.name);
+          console.log(result.clouds);
+          console.log(result.weather[0].icon);
+          console.log(result.main.temp);
+          console.log(result.main.humidity);
+      }
     });
+    console.log(urlString);
   }
 
   // function to getLocation
