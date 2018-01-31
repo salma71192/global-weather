@@ -8,3 +8,11 @@ body {
   color: #fff;
   text-align: center;
 }
+
+.heading {
+  font-size: 5em;
+}
+
+svg:not(:root).svg-inline--fa {
+    margin-bottom: -26px;
+}
