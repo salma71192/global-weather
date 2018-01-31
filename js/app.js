@@ -11,7 +11,7 @@ $(document).ready(function() {
           message.innerHTML = "Geolocation is not supported by this browser.";
       }
   }
-  // getWeather function
+  // getWeather function to upload weather information
   function getWeather(lt, ln) {
     var urlString = api + lt + "&" + ln;
     $.ajax({
@@ -19,27 +19,46 @@ $(document).ready(function() {
       success: function (result) {
         $(".city").text(result.name + ", ");
         $(".country").text(result.sys.country);
-          console.log(result.weather[0].icon);
-          console.log(result.main.temp);
-          console.log(result.main.humidity);
       }
     });
-    console.log(urlString);
+  }
+
+
+  // Google map function
+  function googleMap(lt, ln) {
+    var latlon = new google.maps.LatLng(lt, ln);
+    var mapholder = document.getElementById('mapholder');
+    mapholder.classList.add('mapholder');
+
+    var myOptions = {
+      center:latlon,
+      zoom:14,
+      mapTypeId:google.maps.MapTypeId.ROADMAP,
+      mapTypeControl:false,
+      navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+    }
+
+    var map = new google.maps.Map(mapholder, myOptions);
+    var marker = new google.maps.Marker({
+      position:latlon,
+      map:map,
+      title:"You are here!"
+    });
   }
 
   // function to getLocation
   function showPosition(position) {
-      var lat = "lat=" + position.coords.latitude;
-      var lon = "lon=" + position.coords.longitude;
+      var lat = position.coords.latitude,
+          lon = position.coords.longitude,
+          // lat lon for api url
+          lat_api = "lat=" + lat,
+          lon_api = "lon=" + lon;
 
-      getWeather(lat, lon);
+      // call getWeather function
+      getWeather(lat_api, lon_api);
 
-      var latlon = position.coords.latitude + "," + position.coords.longitude;
-      var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
-      + latlon +"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-      document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
-
-
+      // call googleMap function
+      googleMap(lat, lon);
   }
 
   // function to handle errors
