@@ -12,9 +12,35 @@ $(document).ready(function() {
       }
   }
 
+  function iconName(name) {
+    switch (name) {
+      case 'Drizzle':
+        return "wi-rain-mix";
+        break;
+      case 'Clouds':
+        return "wi-cloudy";
+        break;
+      case 'Rain':
+        return "wi-rain";
+        break;
+      case 'Snow':
+        return "wi-snow";
+        break;
+      case 'Clear':
+        return "wi-day-sunny";
+        break;
+      case 'Thunderstom':
+        return "wi-thunderstorm";
+        break;
+      default:
+        return "";
+      }
+  }
+
   // getWeather function to upload weather information
   function getWeather(lt, ln) {
-    let urlString = api + lt + "&" + ln;
+    let urlString = api + lt + "&" + ln,
+        icon;
 
     // handle tempunit
     $("#tempunit").click(function () {
@@ -38,10 +64,10 @@ $(document).ready(function() {
         $("#temp").text(currentTempInCelsius + " " + String.fromCharCode(176));
         $("#tempunit").text("C");
         $("#wc").text(result.weather[0].main);
+        icon = '<i class="wi ' + iconName(result.weather[0].main) + '"></i>';
+        $("#icon").html(icon);
       }
     });
-
-
   }
 
   // Google map function

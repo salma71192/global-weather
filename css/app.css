@@ -39,6 +39,11 @@ svg:not(:root).svg-inline--fa {
     font-size: 1.5em;
 }
 
+i {
+  margin: 20px;
+  font-size: 2em;
+}
+
 .mapholder {
   width: 500px;
   height: 250px;
