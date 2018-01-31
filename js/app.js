@@ -12,6 +12,7 @@ $(document).ready(function() {
       }
   }
 
+  // function tochoose the right weather icon
   function iconName(name) {
     switch (name) {
       case 'Drizzle':
@@ -97,7 +98,8 @@ $(document).ready(function() {
 
   // function to getLocation
   function showPosition(position) {
-      var lat = position.coords.latitude,
+      $('#message').text('');
+      let lat = position.coords.latitude,
           lon = position.coords.longitude,
           // lat lon for api url
           lat_api = "lat=" + lat,
