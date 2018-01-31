@@ -16,6 +16,19 @@ $(document).ready(function() {
   function getWeather(lt, ln) {
     let urlString = api + lt + "&" + ln;
 
+    // handle tempunit
+    $("#tempunit").click(function () {
+      var currentTempUnit = $("#tempunit").text();
+      var newTempUnit = currentTempUnit == "C" ? "F" : "C";
+      $("#tempunit").text(newTempUnit);
+      if (newTempUnit == "F") {
+        var fahTemp = Math.round(parseInt($("#temp").text()) * 9 / 5 + 32);
+        $("#temp").text(fahTemp + " " + String.fromCharCode(176));
+      } else {
+        $("#temp").text(currentTempInCelsius + " " + String.fromCharCode(176));
+      }
+    });
+
     $.ajax({
       url: urlString,
       success: function (result) {
@@ -27,6 +40,8 @@ $(document).ready(function() {
         $("#wc").text(result.weather[0].main);
       }
     });
+
+
   }
 
   // Google map function
@@ -49,7 +64,7 @@ $(document).ready(function() {
     var marker = new google.maps.Marker({
       position:latlon,
       map:map,
-      title: cityName
+      title: "City Name"
     });
   }
 
