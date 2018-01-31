@@ -9,10 +9,25 @@ body {
   text-align: center;
 }
 
+/*
+  Header --------------------------
+*/
+
 .heading {
   font-size: 5em;
 }
 
 svg:not(:root).svg-inline--fa {
     margin-bottom: -26px;
+}
+
+/*
+  Section Information --------------------------
+*/
+
+.message,
+.client-place {
+    font-size: 2em;
+    font-weight: 300;
+    margin-bottom: 25px;
 }

@@ -1,14 +1,14 @@
 var api = "https://fcc-weather-api.glitch.me/api/current?";
 
 $(document).ready(function() {
-  var x = document.getElementById('x');
+  var message = document.getElementById('message');
 
   // check if geolocation is allowed
   function getLocation() {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition, showError);
       } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
+          message.innerHTML = "Geolocation is not supported by this browser.";
       }
   }
   // getWeather function
@@ -17,8 +17,8 @@ $(document).ready(function() {
     $.ajax({
       url: urlString,
       success: function (result) {
-          console.log(result.name);
-          console.log(result.clouds);
+        $(".city").text(result.name + ", ");
+        $(".country").text(result.sys.country);
           console.log(result.weather[0].icon);
           console.log(result.main.temp);
           console.log(result.main.humidity);
@@ -46,23 +46,19 @@ $(document).ready(function() {
   function showError(error) {
     switch(error.code) {
         case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
+            message.innerHTML = "User denied the request for Geolocation."
             break;
         case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
+            message.innerHTML = "Location information is unavailable."
             break;
         case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
+            message.innerHTML = "The request to get user location timed out."
             break;
         case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
+            message.innerHTML = "An unknown error occurred."
             break;
     }
-
-}
-
-  var btn = $('#btn');
-  btn.on('click', () => {
-    getLocation();
-  })
+  }
+  // call getLocation function to ask for client geolocation
+  getLocation();
 });
