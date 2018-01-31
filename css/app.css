@@ -26,11 +26,19 @@ svg:not(:root).svg-inline--fa {
 */
 
 .message,
-.client-place {
+.client-place,
+.current-temp,
+.weather-condition {
     font-size: 2em;
     font-weight: 300;
     margin-bottom: 25px;
 }
+
+.current-temp,
+.weather-condition {
+    font-size: 1.5em;
+}
+
 .mapholder {
   width: 500px;
   height: 250px;
