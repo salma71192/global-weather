@@ -14,13 +14,14 @@ $(document).ready(function() {
 
   // getWeather function to upload weather information
   function getWeather(lt, ln) {
-    var urlString = api + lt + "&" + ln;
+    let urlString = api + lt + "&" + ln;
+
     $.ajax({
       url: urlString,
       success: function (result) {
         $("#city").text(result.name + ", ");
         $("#country").text(result.sys.country);
-
+        currentTempInCelsius = Math.round(result.main.temp * 10) / 10;
         $("#temp").text(currentTempInCelsius + " " + String.fromCharCode(176));
         $("#tempunit").text("C");
         $("#wc").text(result.weather[0].main);
@@ -30,8 +31,10 @@ $(document).ready(function() {
 
   // Google map function
   function googleMap(lt, ln) {
-    var latlon = new google.maps.LatLng(lt, ln);
-    var mapholder = document.getElementById('mapholder');
+    const latlon = new google.maps.LatLng(lt, ln),
+          mapholder = document.getElementById('mapholder'),
+          cityName = document.getElementById('city').textContent;
+
     mapholder.classList.add('mapholder');
 
     var myOptions = {
@@ -46,7 +49,7 @@ $(document).ready(function() {
     var marker = new google.maps.Marker({
       position:latlon,
       map:map,
-      title: result.name
+      title: cityName
     });
   }
 
